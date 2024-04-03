@@ -13,10 +13,11 @@ patches:
       namespace: bold-services
     patch: |-
       - op: replace
-        path: /spec/hostPath/path
-    #Enter Your Appdata Mounth Path
-        value: "<Example/path/here>"
-
+        path: /spec/nfs/path
+        value: ""
+      - op: replace
+        path: /spec/nfs/server
+        value: ""
 configMapGenerator:
 - name: bold-bi-config
   namespace: bold-services

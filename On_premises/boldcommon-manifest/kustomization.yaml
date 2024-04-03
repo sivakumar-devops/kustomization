@@ -7,6 +7,7 @@ resources:
   - boldbi/configuration/log4net_config.yaml
   - boldbi/configuration/version-config.yaml
   - boldbi/configuration/branding_config.yaml
+  - boldbi/configuration/root-user-details.yaml
   - boldbi/secrets/license-key-secret.yaml
   - boldbi/secrets/bingmap-secrets.yaml
   - boldbi/secrets/db-server-secret.yaml

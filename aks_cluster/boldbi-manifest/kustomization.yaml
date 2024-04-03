@@ -7,4 +7,5 @@ resources:
   - boldbi/configuration/pvclaim_azure_nfs
   - boldbi/service.yaml
   - boldbi/deployment.yaml
+  - boldbi/hpa.yaml
   - boldbi/ingress.yaml

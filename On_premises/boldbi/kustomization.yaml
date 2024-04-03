@@ -6,18 +6,80 @@ namespace: bold-services
 resources:
   - ../boldbi-manifest
 
+patches:
+  - target:
+      kind: PersistentVolume
+      name: bold-fileserver
+      namespace: bold-services
+    patch: |-
+      - op: replace
+        path: /spec/hostPath/path
+        value: "/var/asme"
+
 configMapGenerator:
 - name: bold-bi-config
   namespace: bold-services
   literals:
-    - APP_BASE_URL=<your_updated_application_base_url>
+    - APP_BASE_URL=http://57.151.122.224
     - BOLD_SERVICES_HOSTING_ENVIRONMENT=k8s
-    - INSTALL_OPTIONAL_LIBS=mongodb,mysql,influxdb,snowflake,oracle,clickhouse,google    
+    - INSTALL_OPTIONAL_LIBS=mongodb,mysql,influxdb,snowflake,oracle,clickhouse,google
+    - BOLD_SERVICES_USE_SITE_IDENTIFIER=true
 
+- name: branding-config
+  namespace: bold-services
+  literals:
+    - BOLD_SERVICES_BRANDING_MAIN_LOGO=https://i.postimg.cc/FRyqDKPT/branding-header-logo.png
+    - BOLD_SERVICES_BRANDING_LOGIN_LOGO=https://i.postimg.cc/FRyqDKPT/branding-header-logo.png
+    - BOLD_SERVICES_BRANDING_EMAIL_LOGO=https://i.postimg.cc/FRyqDKPT/branding-header-logo.png
+    - BOLD_SERVICES_BRANDING_FAVICON=https://i.postimg.cc/FRyqDKPT/branding-header-logo.png
+    - BOLD_SERVICES_BRANDING_FOOTER_LOGO=https://i.postimg.cc/FRyqDKPT/branding-header-logo.png
+    - BOLD_SERVICES_SITE_NAME=asmemohamed
+    - BOLD_SERVICES_SITE_IDENTIFIER=asmemohamed
+
+- name: version-config
+  namespace: bold-services
+  literals:
+    - BOLD_SERVICES_BI_API_VERSION=7.4.11 
+    - BOLD_SERVICES_BI_DESIGNER_VERSION=7.4.11 
+    - BOLD_SERVICES_BI_JOBS_VERSION=7.4.11 
+    - BOLD_SERVICES_BI_WEB_VERSION=7.4.11 
+    - BOLD_SERVICES_ID_API_VERSION=7.4.11 
+    - BOLD_SERVICES_ID_WEB_VERSION=7.4.11 
+    - BOLD_SERVICES_UMS_WEB_VERSION=7.4.11 
+    - BOLD_SERVICES_BI_ETL_VERSION=7.4.11 
+
+secretGenerator:
+- name: bold-secret
+  namespace: bold-services
+  literals:
+  - widget_bing_map_enable_secret=true
+  - widget_bing_map_api_key_secret=ApR8dB3rZFArIqIB5pJa3Vux9bRw6B-NO9ShAa4cjpjXaxKC94toIkZGmL-KsE7X
+
+- name: bold-user-secret
+  namespace: bold-services
+  literals:
+  - BOLD_SERVICES_USER_EMAIL=demo@boldbi.com
+  - BOLD_SERVICES_USER_PASSWORD=Admin@123
+
+- name: bold-db-secret
+  namespace: bold-services
+  literals:
+  - BOLD_SERVICES_DB_TYPE=postgresql
+  - BOLD_SERVICES_DB_HOST=mohamedasme.postgres.database.azure.com
+  - BOLD_SERVICES_DB_PORT=5432
+  - BOLD_SERVICES_DB_USER=postgres
+  - BOLD_SERVICES_DB_PASSWORD=Asmeasme9425
+  - BOLD_SERVICES_DB_NAME=""
+  - BOLD_SERVICES_POSTGRESQL_MAINTENANCE_DB=postgres
+
+- name: bold-license-key
+  namespace: bold-services
+  literals:
+  - BOLD_SERVICES_UNLOCK_KEY=@362e31382e30UmlchnZOXraw7U0NUyXtvNyHqG5bSX5kI89kFPCXYMI=eyJFbWFpbCI6InZpbm90aGtyaXNobmFtb29ydGh5QHN5bmNmdXNpb24uY29tIiwiUHJvZ>
 images:
   - name: gcr.io/boldbi-294612/boldbi-server-api
-    newTag: 7.4.11
-    
+    newTag: 7.4.11 
+
   - name: gcr.io/boldbi-294612/boldbi-server-jobs
     newTag: 7.4.11
 
@@ -29,13 +91,14 @@ images:
 
   - name: gcr.io/boldbi-294612/bold-etl
     newTag: 7.4.11
-    
+
   - name: gcr.io/boldbi-294612/bold-identity-api
     newTag: 7.4.11
-   
+
   - name: gcr.io/boldbi-294612/bold-ums
     newTag: 7.4.11
 
   - name: gcr.io/boldbi-294612/bold-identity
     newTag: 7.4.11
-
+generatorOptions:
+  disableNameSuffixHash: true

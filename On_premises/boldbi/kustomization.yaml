@@ -10,7 +10,6 @@ patches:
   - target:
       kind: PersistentVolume
       name: bold-fileserver
-      namespace: bold-services
     patch: |-
       - op: replace
         path: /spec/hostPath/path

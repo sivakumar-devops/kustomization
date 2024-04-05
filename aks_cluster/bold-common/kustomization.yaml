@@ -4,16 +4,18 @@ namespace: bold-services
 resources:
   - ../boldcommon-manifest
 
-#Enter Your Appdata Mounth Path
+#Enter your azure nfs path and server
 patches:
   - target:
       kind: PersistentVolume
       name: bold-fileserver
     patch: |-
       - op: replace
-        path: /spec/hostPath/path
-        value: "<Example/path/here>"
-
+        path: /spec/nfs/path
+        value: "/<storage_account_name>/<fileshare_name>/<folder_name>"
+      - op: replace
+        path: /spec/nfs/server
+        value: "<storage_account_name>.file.core.windows.net"
 configMapGenerator:
 - name: bold-bi-config
   namespace: bold-services

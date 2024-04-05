@@ -93,7 +93,10 @@ spec:
             memory: 750Mi
         env:
         - name: BOLD_SERVICES_HOSTING_ENVIRONMENT
-          value: k8s
+          valueFrom:
+            configMapKeyRef:
+              name: bold-bi-config
+              key: BOLD_SERVICES_HOSTING_ENVIRONMENT
         readinessProbe:
           httpGet:
             path: /health-check
@@ -149,9 +152,15 @@ spec:
             memory: 750Mi
         env:
         - name: BOLD_SERVICES_HOSTING_ENVIRONMENT
-          value: k8s
+          valueFrom:
+            configMapKeyRef:
+              name: bold-bi-config
+              key: BOLD_SERVICES_HOSTING_ENVIRONMENT
         - name: BOLD_SERVICES_USE_SITE_IDENTIFIER
-          value: "true"
+          valueFrom:
+            configMapKeyRef:
+              name: bold-bi-config
+              key: BOLD_SERVICES_USE_SITE_IDENTIFIER
         envFrom:
         - secretRef:
               name: bold-user-secret
@@ -161,6 +170,9 @@ spec:
               name: bold-license-key
         - configMapRef:
               name: branding-config
+              optional: true
+        - configMapRef:
+              name: version-config
               optional: true
         readinessProbe:
           httpGet:
@@ -217,7 +229,10 @@ spec:
             memory: 750Mi
         env:
         - name: BOLD_SERVICES_HOSTING_ENVIRONMENT
-          value: k8s
+          valueFrom:
+            configMapKeyRef:
+              name: bold-bi-config
+              key: BOLD_SERVICES_HOSTING_ENVIRONMENT
         readinessProbe:
           httpGet:
             path: /health-check
@@ -273,7 +288,10 @@ spec:
             memory: 750Mi
         env:
         - name: BOLD_SERVICES_HOSTING_ENVIRONMENT
-          value: k8s
+          valueFrom:
+            configMapKeyRef:
+              name: bold-bi-config
+              key: BOLD_SERVICES_HOSTING_ENVIRONMENT
         readinessProbe:
           httpGet:
             path: /health-check
@@ -395,7 +413,10 @@ spec:
         - name: AppSettings__BrowserTimezone
           value: "true"
         - name: BOLD_SERVICES_HOSTING_ENVIRONMENT
-          value: k8s
+          valueFrom:
+            configMapKeyRef:
+              name: bold-bi-config
+              key: BOLD_SERVICES_HOSTING_ENVIRONMENT
         - name: AppSettings__locale-path
           value: ""
         - name: AppSettings__EnableQueryMetricsInDebugFiles
@@ -457,7 +478,10 @@ spec:
         - containerPort: 80
         env:
         - name: BOLD_SERVICES_HOSTING_ENVIRONMENT
-          value: k8s
+          valueFrom:
+            configMapKeyRef:
+              name: bold-bi-config
+              key: BOLD_SERVICES_HOSTING_ENVIRONMENT
         resources:
           requests:
             cpu: 250m

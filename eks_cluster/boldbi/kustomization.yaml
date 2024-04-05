@@ -3,16 +3,16 @@ kind: Kustomization
 namespace: bold-services
 resources:
   - ../boldbi-manifest
-
-#Enter Your App-data Mount path
+  
+#Enter your efs_file_system_id
 patches:
   - target:
       kind: PersistentVolume
       name: bold-fileserver
     patch: |-
       - op: replace
-        path: /spec/hostPath/path
-        value: "<Example/path/here>"
+        path: /spec/csi/volumeHandle
+        value: "<efs_file_system_id>"
 
 configMapGenerator:
 - name: bold-bi-config

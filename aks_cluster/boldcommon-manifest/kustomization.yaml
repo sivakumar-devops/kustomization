@@ -3,16 +3,16 @@ kind: Kustomization
 
 resources:
   - boldbi/namespace.yaml
-  - boldbi/configuration/pvclaim_onpremise.yaml
+  - boldbi/configuration/pvclaim_azure_nfs
   - boldbi/configuration/log4net_config.yaml
   - boldbi/configuration/version-config.yaml
   - boldbi/configuration/branding_config.yaml
-  - boldbi/configuration/root-user-details.yaml
   - boldbi/secrets/license-key-secret.yaml
   - boldbi/secrets/bingmap-secrets.yaml
   - boldbi/secrets/db-server-secret.yaml
   - boldbi/service.yaml
   - boldbi/deployment.yaml
+  - boldbi/hpa.yaml
   - boldbi/ingress.yaml
 
   - reports/deployment.yaml
